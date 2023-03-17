@@ -1,3 +1,6 @@
+student = []
+course = []
+
 def getInforstudent():
     stu_id = input("Student ID: ")
     stu_name = input("Student name: ")
@@ -15,15 +18,30 @@ def getScore():
         score = float(input(f'{s["stu_name"]} :'))
         s.setdefault("score",{})[c['cid']] = score
 
+def printStudent():
+    print("\nList of students:")
+    for s in student:
+        print(f'ID: {s["stu_id"]},  Name: {s["stu_name"]},  Date of Birth: {s["stu_Dob"]}')
+
+def printCourse():
+    print("\nList of courses:")
+    for c in course:
+        print(f'ID Course: {c["cid"]},  Course: {c["cname"]}')
+
+def printScore():
+    print("\nList of scores:")
+    for s in student:
+        print(f'ID: {s["stu_id"]},  Name: {s["stu_name"]},  Date of Birth: {s["stu_Dob"]}')
+        for c in course:
+            print(f'    ID Course: {c["cid"]}, Course: {c["cname"]}, Score: {s["score"][c["cid"]]}')
+
 n = int(input("Number of students: "))
-student = []
 for i in range(n):
     print('Student ' + str(i+1) +':')
     s = getInforstudent()
     student.append(s)
-    
+
 k = int(input("Number of course: "))
-course = []
 for i in range(k):
     print('Course ' + str(i+1) +':')
     c = getCourse()
@@ -32,8 +50,20 @@ for i in range(k):
 for c in course:
     getScore()
 
+while True:
+    print('\n 1. Print list of students')
+    print(' 2. Print list of courses')
+    print(' 3. Print list of scores')
+    print(' 4. Exit')
 
-for s in student:
-        print(f'ID: {s["stu_id"]},  Name: {s["stu_name"]},  Date of Birth: {s["stu_Dob"]}')
-        for c in course:
-            print(f'    ID Course: {c["cid"]}, Course: {c["cname"]}, Score: {s["score"][c["cid"]]}')
+    choice = int(input('Your choice: '))
+    if choice == 1:
+        printStudent()
+    elif choice == 2:
+        printCourse()
+    elif choice == 3:
+        printScore()
+    elif choice == 4:
+        break
+    else:
+        print("Invalid input. Please try again!")
