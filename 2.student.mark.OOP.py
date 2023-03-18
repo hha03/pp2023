@@ -1,6 +1,7 @@
 student = []
 course = []
 mark = []
+m1 = {}
 
 class Student:
     def __init__(self, sid, sname, sDob):
@@ -14,8 +15,7 @@ class Student:
         return self.__sname
     def get_sDob(self):
         return self.__sDob
-    def get_course_ids(self):
-        return self.__course_ids
+
     def student(self):
         sid = self.__sid
         sname = self.__sname
@@ -31,15 +31,14 @@ class Course:
         return self.__cid
     def get_cname(self):
         return self.__cname
+    
     def course(self):
         cid = self.__cid
         cname = self.__cname
         print('ID Course:',cid , ', Course:',cname)
-    
+
 class Score:
-    def __init__(self,course,student,score):
-        self.__course = course
-        self.__student = student
+    def __init__(self, score):
         self.__score= score
     
     def get_course(self):
@@ -48,11 +47,6 @@ class Score:
         return self.__student
     def get_score(self):
         return self.__score
-    def mark(self):
-        course = self.__course
-        student = self.__student
-        score = self.__score
-        print('Course:',course , ', Student:',student, ', Score:',score)
 
 def getInforstudent():
     stu_id = input("Student ID: ")
@@ -60,21 +54,21 @@ def getInforstudent():
     stu_Dob = input("Student date of birth: ")
     stu = Student(stu_id, stu_name, stu_Dob)
     student.append(stu)
-    return{"stu_id": stu_id,"stu_name": stu_name, "stu_Dob": stu_Dob }
 
 def getCourse():
     cid = input("ID course: ")
     cname = input("Course name: ")
     lsco = Course(cid, cname)
     course.append(lsco)
-    return{"cid": cid, "cname": cname}
 
 def getScore():
     for c in course:
+        print(f'Enter marks for students in {c.get_cname()} :')
         for s in student:
-            sc = input(f'Score of {s.get_sname()} in {c.get_cname()}: ')
-            m = Score(c.get_cname(), s.get_sname(), sc)
-            mark.append(m)
+            score = float(input(f'{s.get_sname()} :'))
+            m1 = Score(score)
+            m1 = {'ID Course': c.get_cid(),'ID': s.get_sid(),'Mark' : score}
+            mark.append(m1)
 
 def printStudent():
     print("\nList of students:")
@@ -85,11 +79,16 @@ def printCourse():
     print("\nList of courses:")
     for c in course:
         c.course()
-    
+
 def printScore():
     print("\nList of scores:")
-    for m in mark:
-        m.mark()
+    for s in student:
+        print(f'\nID: {s.get_sid()},  Name: {s.get_sname()},  Date of Birth: {s.get_sDob()}')
+        for c in course:
+            for m in mark:
+                if m['ID Course'] == c.get_cid() and m['ID'] == s.get_sid():
+                    score = m['Mark']
+                    print(f'    ID Course: {c.get_cid()}, Course: {c.get_cname()}, Mark: ',score)
 
 n = int(input("Number of students: "))
 for i in range(n):
