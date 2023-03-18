@@ -8,7 +8,7 @@ class Student:
         self.__sid = sid
         self.__sname = sname
         self.__sDob = sDob
-    
+
     def get_sid(self):
         return self.__sid
     def get_sname(self):
@@ -31,7 +31,7 @@ class Course:
         return self.__cid
     def get_cname(self):
         return self.__cname
-    
+
     def course(self):
         cid = self.__cid
         cname = self.__cname
@@ -40,11 +40,7 @@ class Course:
 class Score:
     def __init__(self, score):
         self.__score= score
-    
-    def get_course(self):
-        return self.__course
-    def get_student(self):
-        return self.__student
+
     def get_score(self):
         return self.__score
 
