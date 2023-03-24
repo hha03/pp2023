@@ -1,5 +1,7 @@
 student = []
 course = []
+mark = []
+m1 = {}
 
 def getInforstudent():
     stu_id = input("Student ID: ")
@@ -13,10 +15,12 @@ def getCourse():
     return{"cid": cid, "cname": cname}
 
 def getScore():
-    print(f'Enter marks for students in {c["cname"]} :')
-    for s in student:
-        score = float(input(f'{s["stu_name"]} :'))
-        s.setdefault("score",{})[c['cid']] = score
+    for c in course:
+        print(f'Enter marks for students in {c["cname"]} :')
+        for s in student:
+            score = float(input(f'{s["stu_name"]} :'))
+            m1 = {'ID Course': c["cid"],'ID': s["stu_id"],'Mark' : score}
+            mark.append(m1)
 
 def printStudent():
     print("\nList of students:")
@@ -33,22 +37,24 @@ def printScore():
     for s in student:
         print(f'ID: {s["stu_id"]},  Name: {s["stu_name"]},  Date of Birth: {s["stu_Dob"]}')
         for c in course:
-            print(f'    ID Course: {c["cid"]}, Course: {c["cname"]}, Score: {s["score"][c["cid"]]}')
+            for m in mark:
+                if m["ID Course"] == c["cid"] and m["ID"] == s["stu_id"]:
+                    score = m["Mark"]
+                    print(f'    ID Course: {c["cid"]}, Course: {c["cname"]}, Mark: {score} ')
 
 n = int(input("Number of students: "))
 for i in range(n):
     print('Student ' + str(i+1) +':')
     s = getInforstudent()
     student.append(s)
-
+    
 k = int(input("Number of course: "))
 for i in range(k):
     print('Course ' + str(i+1) +':')
     c = getCourse()
     course.append(c)
 
-for c in course:
-    getScore()
+getScore()
 
 while True:
     print('\n 1. Print list of students')
